@@ -51,7 +51,8 @@ def run_exp(dbs, da_s1, da_s2, expdir, ae_weights_dir, trials=5, verbose=0,
                 ae_weights = os.path.join(ae_weights_dir, db, 'trial%d' % i, ae_weights)
 
             # finetuning
-            results[i, :2] = model.fit(x, y, epochs=finetune_epochs, da_s2=da_s2, save_dir=save_dir, ae_weights=ae_weights,
+            results[i, :2] = model.fit(x, y, epochs=finetune_epochs if db!='fmnist' else 10, 
+                                       da_s2=da_s2, save_dir=save_dir, ae_weights=ae_weights,
                                        use_multiprocessing=use_multiprocessing)
             results[i, 2] = time() - t0
 
